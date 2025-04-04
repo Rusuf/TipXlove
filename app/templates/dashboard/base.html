@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+
+{% block title %}{% block dashboard_title %}Dashboard{% endblock %} - StreamTip{% endblock %}
+
+{% block content %}
+<div class="dashboard-container">
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="{{ url_for('index') }}">
+                <img src="{{ url_for('static', filename='images/logo.svg') }}" alt="StreamTip Logo" height="30" class="me-2">
+                <span>StreamTip</span>
+            </a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('dashboard.index') }}">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Transactions</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Settings</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-person-circle me-1"></i>
+                            {% if g.creator and g.creator.username %}
+                                {{ g.creator.username }}
+                            {% elif g.user and g.user.username %}
+                                {{ g.user.username }}
+                            {% else %}
+                                Account
+                            {% endif %}
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="#">Profile</a></li>
+                            <li><a class="dropdown-item" href="#">Account Settings</a></li>
+                            {% if g.creator and g.creator.tip_link_id %}
+                            <li><a class="dropdown-item" href="{{ url_for('payments.tip_page', link_id=g.creator.tip_link_id) }}" target="_blank">
+                                <i class="bi bi-coin me-2"></i> My Tip Page
+                            </a></li>
+                            {% endif %}
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="{{ url_for('auth.logout') }}">Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container py-4">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="dashboard-sidebar mb-4">
+                    <div class="list-group">
+                        <a href="{{ url_for('dashboard.index') }}" class="list-group-item list-group-item-action {% if request.endpoint == 'dashboard.index' %}active{% endif %}">
+                            <i class="bi bi-speedometer2 me-2"></i> Dashboard
+                        </a>
+                        <a href="#" class="list-group-item list-group-item-action">
+                            <i class="bi bi-cash-stack me-2"></i> Transactions
+                        </a>
+                        {% if g.creator and g.creator.tip_link_id %}
+                        <a href="{{ url_for('payments.tip_page', link_id=g.creator.tip_link_id) }}" class="list-group-item list-group-item-action" target="_blank">
+                            <i class="bi bi-coin me-2"></i> My Tip Page
+                        </a>
+                        {% endif %}
+                        <a href="#" class="list-group-item list-group-item-action">
+                            <i class="bi bi-broadcast me-2"></i> Stream Overlay
+                        </a>
+                        <a href="#" class="list-group-item list-group-item-action">
+                            <i class="bi bi-gear me-2"></i> Settings
+                        </a>
+                        <a href="#" class="list-group-item list-group-item-action">
+                            <i class="bi bi-question-circle me-2"></i> Help & Support
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-9">
+                {% block dashboard_content %}{% endblock %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

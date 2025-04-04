@@ -1,0 +1,84 @@
+/* App-specific styles */
+.app-container {
+  min-height: 100vh;
+  background: linear-gradient(to right, var(--purple-light), var(--pink));
+}
+
+.card-container {
+  position: relative;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+}
+
+@media (min-width: 640px) {
+  .card-container {
+    max-width: 36rem;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+.card-gradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to right, rgb(34 211 238), rgb(59 130 246));
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+  transform: skewY(-6deg);
+}
+
+@media (min-width: 640px) {
+  .card-gradient {
+    transform: rotate(-6deg);
+    border-radius: 1.5rem;
+  }
+}
+
+.card-content {
+  position: relative;
+  padding: 2.5rem 1rem;
+  background-color: white;
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+}
+
+@media (min-width: 640px) {
+  .card-content {
+    border-radius: 1.5rem;
+    padding: 5rem;
+  }
+}
+
+.card-inner {
+  max-width: 28rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.text-section {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  color: rgb(55 65 81);
+}
+
+@media (min-width: 640px) {
+  .text-section {
+    font-size: 1.125rem;
+    line-height: 1.75rem;
+  }
+}
+
+.heading {
+  font-size: 1.5rem;
+  line-height: 2rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.success-message {
+  color: rgb(22 163 74);
+}
+
+.error-message {
+  color: rgb(220 38 38);
+} 

@@ -1,0 +1,128 @@
+{% extends "base.html" %}
+
+{% block title %}Register - StreamTip{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/auth.css') }}">
+{% endblock %}
+
+{% block nav %}{% endblock %}
+
+{% block content %}
+<div class="auth-page">
+    <div class="auth-container">
+        <div class="auth-card">
+            <div class="auth-header">
+                <div class="logo">
+                    <a href="{{ url_for('index') }}">StreamTip</a>
+                </div>
+                <h2>Create your account</h2>
+                <p>Join StreamTip and start receiving tips today</p>
+            </div>
+            
+            {% for category, message in get_flashed_messages(with_categories=true) %}
+            <div class="alert alert-{{ category }}">
+                {{ message }}
+            </div>
+            {% endfor %}
+            
+            <form method="post" action="{{ url_for('auth.register') }}" class="auth-form">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" class="form-input" placeholder="Choose a username" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email (Optional if phone provided)</label>
+                    <input type="email" id="email" name="email" class="form-input" placeholder="you@example.com">
+                </div>
+
+                <div class="form-group">
+                    <label for="phone_number">Phone (Optional if email provided)</label>
+                    <input type="tel" id="phone_number" name="phone_number" class="form-input" placeholder="254XXXXXXXXX">
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <div class="password-field">
+                        <input type="password" id="password" name="password" class="form-input" placeholder="••••••••" required>
+                        <button type="button" class="password-toggle" aria-label="Toggle password visibility">
+                            <svg class="eye-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                <path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="confirm_password">Confirm Password</label>
+                    <div class="password-field">
+                        <input type="password" id="confirm_password" name="confirm_password" class="form-input" placeholder="••••••••" required>
+                        <button type="button" class="password-toggle" aria-label="Toggle password visibility">
+                            <svg class="eye-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                <path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="terms" name="terms" class="form-checkbox" required>
+                        <span>I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a></span>
+                    </label>
+                </div>
+                
+                <button type="submit" class="btn-submit">Create Account</button>
+            </form>
+            
+            <div class="auth-divider">
+                <span>Or continue with</span>
+            </div>
+            
+            <div class="social-buttons">
+                <button class="social-button">
+                    <img src="{{ url_for('static', filename='images/google.svg') }}" alt="Google">
+                    Google
+                </button>
+                <button class="social-button">
+                    <img src="{{ url_for('static', filename='images/apple.svg') }}" alt="Apple">
+                    Apple
+                </button>
+            </div>
+            
+            <div class="auth-footer">
+                <p>Already have an account? <a href="{{ url_for('auth.login') }}">Sign in</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const toggles = document.querySelectorAll('.password-toggle');
+    
+    toggles.forEach(toggle => {
+        toggle.addEventListener('click', function() {
+            const input = this.parentElement.querySelector('input');
+            const type = input.getAttribute('type') === 'password' ? 'text' : 'password';
+            input.setAttribute('type', type);
+        });
+    });
+
+    // Add client-side validation to ensure either email or phone_number is provided
+    document.querySelector('form').addEventListener('submit', function(e) {
+        const email = document.getElementById('email').value;
+        const phone_number = document.getElementById('phone_number').value;
+        
+        if (!email && !phone_number) {
+            e.preventDefault();
+            alert('Please provide either an email address or phone number.');
+        }
+    });
+});
+</script>
+{% endblock %} 

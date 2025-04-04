@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tip Overlay</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background: transparent;
+            overflow: hidden;
+        }
+
+        #tipContainer {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 300px;
+        }
+
+        .tip-alert {
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            animation: slideIn 0.5s ease-out, fadeOut 0.5s ease-in 4.5s forwards;
+        }
+
+        .tip-amount {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #4CAF50;
+        }
+
+        .tip-name {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .tip-message {
+            font-style: italic;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeOut {
+            from {
+                opacity: 1;
+            }
+            to {
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="tipContainer"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+    <script>
+        const socket = io();
+        const creatorId = window.location.pathname.split('/').pop();
+        
+        socket.on('connect', () => {
+            socket.emit('join', { creator_id: creatorId });
+        });
+
+        socket.on('new_tip', (data) => {
+            const tipElement = document.createElement('div');
+            tipElement.className = 'tip-alert';
+            tipElement.innerHTML = `
+                <div class="tip-amount">KES ${data.amount}</div>
+                <div class="tip-name">${data.name}</div>
+                ${data.message ? `<div class="tip-message">${data.message}</div>` : ''}
+            `;
+
+            document.getElementById('tipContainer').appendChild(tipElement);
+
+            // Remove the tip alert after animation completes (5 seconds)
+            setTimeout(() => {
+                tipElement.remove();
+            }, 5000);
+        });
+    </script>
+</body>
+</html> 

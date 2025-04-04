@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="200" height="100" viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg">
+  <!-- Left Shield -->
+  <g opacity="0.15">
+    <!-- Main Oval Shield -->
+    <path d="M15,50 C15,30 25,20 45,20 C65,20 75,30 75,50 C75,70 65,80 45,80 C25,80 15,70 15,50Z" 
+          stroke="currentColor" 
+          fill="none" 
+          stroke-width="1"/>
+          
+    <!-- Center Vertical Line -->
+    <path d="M45,20 L45,80" 
+          stroke="currentColor" 
+          stroke-width="1"/>
+          
+    <!-- Left Black Section -->
+    <path d="M25,30 L43,30 L43,70 L25,70 Z" 
+          stroke="currentColor" 
+          fill="currentColor" 
+          stroke-width="1"/>
+          
+    <!-- Right Black Section -->
+    <path d="M47,30 L65,30 L65,70 L47,70 Z" 
+          stroke="currentColor" 
+          fill="currentColor" 
+          stroke-width="1"/>
+          
+    <!-- Center Vertical Divider -->
+    <path d="M44,24 L46,24 L46,76 L44,76 Z" 
+          stroke="currentColor" 
+          fill="currentColor" 
+          stroke-width="0"/>
+          
+    <!-- Center Circle -->
+    <circle cx="45" cy="50" r="4" 
+            stroke="currentColor" 
+            fill="currentColor"/>
+            
+    <!-- Left Spear -->
+    <line x1="10" y1="15" x2="35" y2="50" 
+          stroke="currentColor" 
+          stroke-width="1.5"/>
+    <path d="M5,10 L10,15 L15,10" 
+          stroke="currentColor" 
+          fill="none" 
+          stroke-width="1.5"/>
+          
+    <!-- Right Spear -->
+    <line x1="80" y1="15" x2="55" y2="50" 
+          stroke="currentColor" 
+          stroke-width="1.5"/>
+    <path d="M85,10 L80,15 L75,10" 
+          stroke="currentColor" 
+          fill="none" 
+          stroke-width="1.5"/>
+  </g>
+
+  <!-- Right Shield -->
+  <g opacity="0.15" transform="translate(100, 0)">
+    <!-- Main Oval Shield -->
+    <path d="M15,50 C15,30 25,20 45,20 C65,20 75,30 75,50 C75,70 65,80 45,80 C25,80 15,70 15,50Z" 
+          stroke="currentColor" 
+          fill="none" 
+          stroke-width="1"/>
+          
+    <!-- Center Vertical Line -->
+    <path d="M45,20 L45,80" 
+          stroke="currentColor" 
+          stroke-width="1"/>
+          
+    <!-- Left Black Section -->
+    <path d="M25,30 L43,30 L43,70 L25,70 Z" 
+          stroke="currentColor" 
+          fill="currentColor" 
+          stroke-width="1"/>
+          
+    <!-- Right Black Section -->
+    <path d="M47,30 L65,30 L65,70 L47,70 Z" 
+          stroke="currentColor" 
+          fill="currentColor" 
+          stroke-width="1"/>
+          
+    <!-- Center Vertical Divider -->
+    <path d="M44,24 L46,24 L46,76 L44,76 Z" 
+          stroke="currentColor" 
+          fill="currentColor" 
+          stroke-width="0"/>
+          
+    <!-- Center Circle -->
+    <circle cx="45" cy="50" r="4" 
+            stroke="currentColor" 
+            fill="currentColor"/>
+            
+    <!-- Left Spear -->
+    <line x1="10" y1="15" x2="35" y2="50" 
+          stroke="currentColor" 
+          stroke-width="1.5"/>
+    <path d="M5,10 L10,15 L15,10" 
+          stroke="currentColor" 
+          fill="none" 
+          stroke-width="1.5"/>
+          
+    <!-- Right Spear -->
+    <line x1="80" y1="15" x2="55" y2="50" 
+          stroke="currentColor" 
+          stroke-width="1.5"/>
+    <path d="M85,10 L80,15 L75,10" 
+          stroke="currentColor" 
+          fill="none" 
+          stroke-width="1.5"/>
+  </g>
+</svg> 

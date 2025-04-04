@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+
+{% block title %}Tip {{ creator.username }}{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/tip.css') }}">
+{% endblock %}
+
+{% block nav %}{% endblock %}
+
+{% block content %}
+<div class="tip-page">
+    <div class="tip-form">
+        <div class="tip-card">
+            <div class="tip-header">
+                <div class="logo">StreamTip</div>
+                <h1>Send a Tip to <span class="recipient">{{ creator.username }}</span></h1>
+            </div>
+
+            <div class="card-body">
+                <form id="tipForm">
+                    <input type="hidden" id="creatorId" value="{{ creator.id }}">
+                    
+                    <div class="form-group">
+                        <label class="input-label" for="amount">Quick Amount (KES)</label>
+                        <div class="amount-presets">
+                            <button type="button" class="preset-btn" data-amount="5">KES 5</button>
+                            <button type="button" class="preset-btn" data-amount="10">KES 10</button>
+                            <button type="button" class="preset-btn" data-amount="20">KES 20</button>
+                            <button type="button" class="preset-btn" data-amount="50">KES 50</button>
+                            <button type="button" class="preset-btn" data-amount="100">KES 100</button>
+                            <button type="button" class="preset-btn" data-amount="200">KES 200</button>
+                        </div>
+                        <div class="input-group">
+                            <span class="input-prefix">KES</span>
+                            <input type="number" class="input-field" id="amount" required min="1" placeholder="Custom amount">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="input-label" for="phoneNumber">M-Pesa Phone Number</label>
+                        <div class="input-group">
+                            <span class="input-prefix">+</span>
+                            <input type="tel" class="input-field" id="phoneNumber" required pattern="^254[0-9]{9}$" placeholder="254XXXXXXXXX">
+                        </div>
+                        <small class="input-help">Format: 254XXXXXXXXX</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="input-label" for="tipperName">Your Name (Optional)</label>
+                        <input type="text" class="input-field" id="tipperName" placeholder="Enter your name">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="input-label" for="message">Message (Optional)</label>
+                        <textarea class="message-field" id="message" rows="3" placeholder="Add a message..."></textarea>
+                    </div>
+
+                    <button type="submit" class="submit-btn" id="submitBtn">
+                        Send Tip
+                    </button>
+                </form>
+                
+                <div id="loading-indicator" class="loading-indicator" style="display: none;">
+                    <div class="spinner-border" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                    <span>Processing your tip...</span>
+                </div>
+                
+                <div id="success-alert" class="alert alert-success" style="display: none;">
+                    <span id="success-message"></span>
+                </div>
+                
+                <div id="error-alert" class="alert alert-danger" style="display: none;">
+                    <span id="error-message"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+<script src="{{ url_for('static', filename='js/tip.js') }}"></script>
+{% endblock %} 

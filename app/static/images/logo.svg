@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="200" height="50" viewBox="0 0 200 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Main Shapes -->
+  <rect x="10" y="10" width="30" height="30" rx="8" fill="#6c5ce7"/>
+  <path d="M22 25C22 22.7909 23.7909 21 26 21H45C47.2091 21 49 22.7909 49 25C49 27.2091 47.2091 29 45 29H26C23.7909 29 22 27.2091 22 25Z" fill="#6c5ce7"/>
+  
+  <!-- Coin/Tip Symbol -->
+  <circle cx="25" cy="25" r="10" fill="#6c5ce7" stroke="white" stroke-width="2"/>
+  <text x="22" y="29" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">$</text>
+  
+  <!-- Text -->
+  <text x="55" y="29" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#2d3436">Stream</text>
+  <text x="115" y="29" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#6c5ce7">Tip</text>
+  
+  <!-- Accent Lines -->
+  <path d="M135 25H160" stroke="#6c5ce7" stroke-width="2" stroke-linecap="round"/>
+  <path d="M165 20H175" stroke="#6c5ce7" stroke-width="2" stroke-linecap="round"/>
+  <path d="M165 30H175" stroke="#6c5ce7" stroke-width="2" stroke-linecap="round"/>
+</svg> 

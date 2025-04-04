@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StreamTip - Streamline Your Payments</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-logo">
+                <a href="{{ url_for('index') }}" class="logo-text">StreamTip</a>
+            </div>
+            <div class="nav-links">
+                <a href="#features">Features</a>
+                <a href="#services">Services</a>
+                <a href="#about">About</a>
+                <a href="#how-it-works">How it works</a>
+            </div>
+            <div class="nav-auth">
+                {% if g.creator or g.user %}
+                    <a href="{{ url_for('dashboard.index') }}" class="btn-primary">Dashboard</a>
+                    <a href="{{ url_for('auth.logout') }}" class="btn-login">Logout</a>
+                {% else %}
+                    <a href="{{ url_for('auth.login') }}" class="btn-login">LOG IN</a>
+                    <a href="{{ url_for('auth.register') }}" class="btn-join">REGISTER</a>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+
+    <main class="hero">
+        <div class="container">
+            <div class="hero-grid">
+                <div class="hero-content">
+                    <span class="hero-label">BEST PAYMENT SOLUTION</span>
+                    <h1>Make money <br><span class="gradient-text">easier and faster</span></h1>
+                    <p>Streamline your payments with our innovative financial solutions. Accept payments, manage your money, and grow your business.</p>
+                    <div class="cta-group">
+                        {% if g.creator or g.user %}
+                            <a href="{{ url_for('dashboard.index') }}" class="btn-primary">
+                                Go to Dashboard
+                                <svg class="btn-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </a>
+                        {% else %}
+                            <a href="{{ url_for('auth.register') }}" class="btn-primary">
+                                Get started
+                                <svg class="btn-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </a>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <img src="{{ url_for('static', filename='images/hero-image.svg') }}" alt="StreamTip Platform" class="floating-image">
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <section id="features" class="features">
+        <div class="container">
+            <div class="section-header">
+                <h2>Features that empower you</h2>
+                <p>Everything you need to manage your payments and grow your business</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="bi bi-cash-stack"></i>
+                    </div>
+                    <h3>Easy Payments</h3>
+                    <p>Accept tips with M-Pesa in seconds. No complicated setup.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="bi bi-broadcast"></i>
+                    </div>
+                    <h3>Stream Overlays</h3>
+                    <p>Real-time tip alerts for your streams with customizable overlays.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="bi bi-graph-up"></i>
+                    </div>
+                    <h3>Analytics</h3>
+                    <p>Track your income and understand your audience with detailed reports.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="how-it-works" class="how-it-works">
+        <div class="container">
+            <div class="section-header">
+                <h2>How it works</h2>
+                <p>Get started in just three simple steps</p>
+            </div>
+            <div class="steps-grid">
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <h3>Create Account</h3>
+                    <p>Sign up for StreamTip in less than a minute. No complicated forms.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <h3>Share Your Link</h3>
+                    <p>Get your unique tip link and share it with your audience.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <h3>Receive Tips</h3>
+                    <p>Start receiving tips directly to your account. It's that simple!</p>
+                </div>
+            </div>
+            <div class="cta-center">
+                <a href="{{ url_for('auth.register') }}" class="btn-primary">Create Your Account Now</a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <h3>StreamTip</h3>
+                    <p>Accept tips and donations with our simple, powerful platform designed for streamers and digital creators.</p>
+                </div>
+                <div class="footer-links">
+                    <h5>Company</h5>
+                    <ul>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#team">Team</a></li>
+                        <li><a href="#careers">Careers</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h5>Resources</h5>
+                    <ul>
+                        <li><a href="#blog">Blog</a></li>
+                        <li><a href="#help">Help Center</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h5>Legal</h5>
+                    <ul>
+                        <li><a href="#terms">Terms</a></li>
+                        <li><a href="#privacy">Privacy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 StreamTip. All rights reserved.</p>
+                <div class="social-links">
+                    <a href="#"><i class="bi bi-twitter"></i></a>
+                    <a href="#"><i class="bi bi-facebook"></i></a>
+                    <a href="#"><i class="bi bi-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html> 

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="800" height="800" viewBox="0 0 800 800" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <path id="monstera-leaf" d="M40,0 C60,20 70,40 70,60 C70,80 60,100 40,120 C20,100 10,80 10,60 C10,40 20,20 40,0 Z" />
+  </defs>
+  
+  <!-- Pattern of monstera leaves with low opacity -->
+  <g fill="rgba(255, 255, 255, 0.05)">
+    <!-- Leaf 1 -->
+    <use href="#monstera-leaf" transform="translate(100, 100) rotate(45) scale(2)" />
+    
+    <!-- Leaf 2 -->
+    <use href="#monstera-leaf" transform="translate(500, 300) rotate(-15) scale(1.5)" />
+    
+    <!-- Leaf 3 -->
+    <use href="#monstera-leaf" transform="translate(200, 600) rotate(75) scale(2.5)" />
+    
+    <!-- Leaf 4 -->
+    <use href="#monstera-leaf" transform="translate(700, 700) rotate(-60) scale(2)" />
+  </g>
+</svg> 

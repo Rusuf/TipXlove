@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+
+{% block title %}Send a Tip - StreamTip{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/tip.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="tip-container">
+    <div class="tip-header">
+        <h1>Send a Tip to <span class="recipient">{{ creator.display_name }}</span></h1>
+    </div>
+
+    <form id="tipForm" method="POST" action="{{ url_for('tip.process_tip', username=creator.username) }}">
+        <div class="amount-presets">
+            <button type="button" class="preset-btn" data-amount="10">KES 10</button>
+            <button type="button" class="preset-btn" data-amount="20">KES 20</button>
+            <button type="button" class="preset-btn" data-amount="50">KES 50</button>
+            <button type="button" class="preset-btn" data-amount="100">KES 100</button>
+            <button type="button" class="preset-btn" data-amount="200">KES 200</button>
+            <button type="button" class="preset-btn" data-amount="custom">Custom</button>
+        </div>
+
+        <div class="custom-amount" style="display: none;">
+            <label class="input-label" for="amount">Custom Amount (KES)</label>
+            <div class="input-group">
+                <span class="input-prefix">KES</span>
+                <input type="number" id="amount" name="amount" class="input-field" placeholder="Enter amount" min="1" required>
+            </div>
+            <span class="input-help">Minimum amount: KES 1</span>
+        </div>
+
+        <div class="phone-input">
+            <label class="input-label" for="phone_number">M-Pesa Phone Number</label>
+            <div class="input-group">
+                <span class="input-prefix">+254</span>
+                <input type="tel" id="phone_number" name="phone_number" class="input-field" placeholder="7XXXXXXXX" pattern="[0-9]{9}" required>
+            </div>
+            <span class="input-help">Format: 7XXXXXXXX</span>
+        </div>
+
+        <div class="optional-fields">
+            <label class="input-label" for="name">Your Name (Optional)</label>
+            <input type="text" id="name" name="name" class="input-field" placeholder="Enter your name">
+            
+            <label class="input-label" for="message">Message (Optional)</label>
+            <textarea id="message" name="message" class="message-field" placeholder="Add a message..."></textarea>
+        </div>
+
+        <button type="submit" class="submit-btn">Send Tip</button>
+    </form>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const presetButtons = document.querySelectorAll('.preset-btn');
+    const amountInput = document.getElementById('amount');
+    const customAmountDiv = document.querySelector('.custom-amount');
+
+    presetButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            // Remove selected class from all buttons
+            presetButtons.forEach(btn => btn.classList.remove('selected'));
+            // Add selected class to clicked button
+            this.classList.add('selected');
+            
+            const amount = this.dataset.amount;
+            if (amount === 'custom') {
+                customAmountDiv.style.display = 'block';
+                amountInput.value = '';
+                amountInput.focus();
+            } else {
+                customAmountDiv.style.display = 'none';
+                amountInput.value = amount;
+            }
+        });
+    });
+
+    // Format phone number as user types
+    const phoneInput = document.getElementById('phone_number');
+    phoneInput.addEventListener('input', function() {
+        // Remove any non-numeric characters
+        this.value = this.value.replace(/\D/g, '');
+        // Ensure it doesn't exceed 9 digits
+        if (this.value.length > 9) {
+            this.value = this.value.slice(0, 9);
+        }
+    });
+});
+</script>
+{% endblock %} 

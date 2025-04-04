@@ -1,0 +1,195 @@
+<!-- Withdrawal Modal -->
+<div id="withdrawalModal" class="fixed inset-0 z-50 hidden overflow-y-auto" aria-labelledby="withdrawalModalLabel" aria-hidden="true">
+    <div class="flex min-h-screen items-end justify-center px-4 pt-4 pb-20 text-center sm:block sm:p-0">
+        <!-- Background overlay -->
+        <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
+        
+        <!-- Modal panel -->
+        <div class="inline-block transform overflow-hidden rounded-lg bg-white text-left align-bottom shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:align-middle">
+            <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                <div class="sm:flex sm:items-start">
+                    <div class="mt-3 text-center sm:mt-0 sm:text-left w-full">
+                        <h3 class="text-lg font-medium leading-6 text-gray-900" id="withdrawalModalLabel">
+                            Withdraw to M-Pesa
+                        </h3>
+                        <div class="mt-4">
+                            <form id="withdrawalForm" class="space-y-4">
+                                <div>
+                                    <label for="withdrawalAmount" class="block text-sm font-medium text-gray-700">
+                                        Amount (KES)
+                                    </label>
+                                    <input type="number" 
+                                           class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" 
+                                           id="withdrawalAmount" 
+                                           name="amount" 
+                                           min="1" 
+                                           step="1" 
+                                           required>
+                                    <p class="mt-1 text-sm text-gray-500">
+                                        Available balance: KES <span id="modalAvailableBalance">{{ available_balance }}</span>
+                                    </p>
+                                </div>
+                                <div>
+                                    <label for="phoneNumber" class="block text-sm font-medium text-gray-700">
+                                        M-Pesa Number
+                                    </label>
+                                    <input type="tel" 
+                                           class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" 
+                                           id="phoneNumber" 
+                                           name="phone_number" 
+                                           pattern="254[0-9]{9}" 
+                                           placeholder="254XXXXXXXXX" 
+                                           value="{{ g.creator.phone_number }}" 
+                                           required>
+                                    <p class="mt-1 text-sm text-gray-500">
+                                        Enter your M-Pesa number in the format: 254XXXXXXXXX
+                                    </p>
+                                </div>
+                                <div class="rounded-md bg-blue-50 p-4">
+                                    <div class="flex">
+                                        <div class="flex-shrink-0">
+                                            <svg class="h-5 w-5 text-blue-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
+                                            </svg>
+                                        </div>
+                                        <div class="ml-3">
+                                            <p class="text-sm text-blue-700">
+                                                Withdrawals are processed instantly to your M-Pesa account.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+                <button type="button" 
+                        class="inline-flex w-full justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:ml-3 sm:w-auto sm:text-sm"
+                        id="submitWithdrawal">
+                    <svg class="hidden -ml-1 mr-2 h-5 w-5 animate-spin text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    Withdraw
+                </button>
+                <button type="button" 
+                        class="mt-3 inline-flex w-full justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-base font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
+                        onclick="closeWithdrawalModal()">
+                    Cancel
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const modal = document.getElementById('withdrawalModal');
+    const withdrawalForm = document.getElementById('withdrawalForm');
+    const submitBtn = document.getElementById('submitWithdrawal');
+    const spinner = submitBtn.querySelector('svg');
+    const availableBalance = parseFloat(document.getElementById('modalAvailableBalance').textContent);
+
+    // Show modal
+    window.showWithdrawalModal = function() {
+        modal.classList.remove('hidden');
+        document.body.classList.add('overflow-hidden');
+    }
+
+    // Close modal
+    window.closeWithdrawalModal = function() {
+        modal.classList.add('hidden');
+        document.body.classList.remove('overflow-hidden');
+    }
+
+    submitBtn.addEventListener('click', function() {
+        if (!withdrawalForm.checkValidity()) {
+            withdrawalForm.reportValidity();
+            return;
+        }
+
+        const amount = parseFloat(document.getElementById('withdrawalAmount').value);
+        const phoneNumber = document.getElementById('phoneNumber').value;
+
+        if (amount <= 0) {
+            showError('Please enter a valid amount');
+            return;
+        }
+
+        if (amount > availableBalance) {
+            showError('Insufficient balance');
+            return;
+        }
+
+        // Disable form and show spinner
+        submitBtn.disabled = true;
+        spinner.classList.remove('hidden');
+
+        // Send withdrawal request
+        fetch('/withdrawals/initiate', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+            },
+            body: JSON.stringify({
+                amount: amount,
+                phone_number: phoneNumber
+            })
+        })
+        .then(response => {
+            if (!response.ok) {
+                if (response.status === 503) {
+                    throw new Error('M-Pesa service is temporarily unavailable. Please try again later.');
+                } else if (response.status === 429) {
+                    throw new Error('Too many withdrawal attempts. Please wait a few minutes and try again.');
+                } else if (response.status === 401) {
+                    throw new Error('Your session has expired. Please refresh the page and try again.');
+                }
+                throw new Error('Server error occurred. Please try again later.');
+            }
+            const contentType = response.headers.get("content-type");
+            if (!contentType || !contentType.includes("application/json")) {
+                throw new Error('Server returned an invalid response. Please try again later.');
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data.status === 'success') {
+                // Close modal
+                closeWithdrawalModal();
+
+                // Show success message
+                if (data.test_mode) {
+                    showSuccess('Test withdrawal completed successfully');
+                } else {
+                    showSuccess('Withdrawal initiated successfully. You will receive an M-Pesa payment shortly.');
+                }
+
+                // Reset form
+                withdrawalForm.reset();
+
+                // Dispatch event to update dashboard
+                document.dispatchEvent(new CustomEvent('withdrawalCompleted'));
+            } else {
+                showError(data.message || 'Failed to process withdrawal');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            if (error.name === 'TypeError' && !navigator.onLine) {
+                showError('No internet connection. Please check your network and try again.');
+            } else {
+                showError(error.message || 'Network error. Please try again later.');
+            }
+        })
+        .finally(() => {
+            // Re-enable form and hide spinner
+            submitBtn.disabled = false;
+            spinner.classList.add('hidden');
+        });
+    });
+});
+</script> 

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1200" height="800" viewBox="0 0 1200 800" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <pattern id="monstera-pattern" x="0" y="0" width="400" height="400" patternUnits="userSpaceOnUse">
+      <!-- Single monstera leaf -->
+      <path d="M200 50 
+               C 180 70, 150 100, 140 150
+               C 130 200, 140 250, 160 280
+               C 180 310, 220 320, 240 300
+               C 260 280, 270 240, 260 200
+               C 250 160, 220 100, 200 50
+               M 200 100
+               C 190 120, 170 150, 165 180
+               C 160 210, 165 240, 180 260
+               C 195 280, 220 285, 235 270
+               C 250 255, 255 230, 250 200
+               C 245 170, 220 130, 200 100" 
+            fill="#2F5233" fill-opacity="0.1"/>
+      
+      <!-- Leaf cutouts -->
+      <path d="M200 120
+               C 195 130, 185 150, 182 170
+               C 179 190, 182 210, 190 225
+               C 198 240, 215 243, 225 233
+               C 235 223, 238 205, 235 185
+               C 232 165, 215 140, 200 120" 
+            fill="#FFFFFF" fill-opacity="0.8"/>
+    </pattern>
+  </defs>
+  
+  <!-- Background with gradient -->
+  <rect width="100%" height="100%" fill="#F9FAFB"/>
+  
+  <!-- Pattern overlay -->
+  <rect width="100%" height="100%" fill="url(#monstera-pattern)" opacity="0.5"/>
+</svg> 
